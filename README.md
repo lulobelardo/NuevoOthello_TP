@@ -3,7 +3,8 @@
 
 # Othello / Reversi
 Trabajo Final para Programación 2 LCC 2022 realizado por:
-==Luciano Manuel Belardo==
+*Luciano Manuel Belardo*
+
 ---
 ## Funcionamiento
 Consta de dos programas, uno en C y otro en Python.
