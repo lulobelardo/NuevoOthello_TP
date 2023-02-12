@@ -13,6 +13,17 @@ Consta de dos programas, uno en C y otro en Python.
 El programa en C toma dos archivos como argumento por consola. El primero contiene una partida de Othello con su respectivo formato, y realiza todas las jugadas presentes. *Si el juego finaliza*, entonces muestra el resultado del mismo; *si hubo algun error*, dice cuál es; y *si el juego es correcto pero incompleto*, entonces guarda el tablero resultante de haber realizado todas las jugadas escritas en el segundo archivo, seguido del color que le corresponde jugar.
 
 ### Ejecución del Programa
+### Make
+
+#### _Windows_:
+```sh
+mingw32-make.exe -C ./C
+```
+#### _Linux_:
+```sh
+make -C ./C
+```
+Luego de ejecutar el make:
 - PATH/1: Archivo contenedor del archivo origen, la partida incompleta. (`./Recursos/partida.txt`)
 - PATH/2: Archivo destino. Donde se guardará el tablero. (`./Recursos/resultado.txt`)
 #### _Windows_:
