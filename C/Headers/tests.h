@@ -3,6 +3,7 @@
 
 #include <assert.h>
 #include <string.h>
+#include <unistd.h>
 #include "funciones.h"
 
 void test_crear_tablero();

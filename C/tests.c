@@ -54,42 +54,62 @@ void test_crear_tablero() {
 }
 
 void test_guardar_tablero() {
-  Tablero tablero = crear_tablero();
-  assert(guardar_tablero("./RecursosTest/test_resultado_1.txt", tablero, 'B') == 0);
+  char path[511];
+  if (getcwd(path, sizeof(path)) != NULL) {
+    if(path[strlen(path) - 1] != 'C')
+      strcat(path,"/C");
+    strcat(path,"/RecursosTest/test_resultado_1.txt");
 
-  FILE * fp = fopen("./RecursosTest/test_resultado_1.txt", "r");
-  for (int i = 0; i < DIMENSION_TABLERO; i++) {
-    for (int c = 0; c < DIMENSION_TABLERO; c++) {
-      assert(tablero[i][c] == fgetc(fp));
+
+    Tablero tablero = crear_tablero();
+    assert(guardar_tablero(path, tablero, 'B') == 0);
+
+    FILE * fp = fopen(path, "r");
+    for (int i = 0; i < DIMENSION_TABLERO; i++) {
+      for (int c = 0; c < DIMENSION_TABLERO; c++) {
+        assert(tablero[i][c] == fgetc(fp));
+      }
+      fgetc(fp);
     }
-    fgetc(fp);
-  }
 
-  assert(fgetc(fp) == 'B');
-  
-  fclose(fp);
-  liberar_tablero(tablero);
+    assert(fgetc(fp) == 'B');
+
+    fclose(fp);
+    liberar_tablero(tablero);
+  }
 }
 
 void test_obtener_jugadores() {
-  FILE * fp = fopen("./RecursosTest/test_partida_1.txt", "r");
+  char path[511];
+  if (getcwd(path, sizeof(path)) != NULL) {
+    if(path[strlen(path) - 1] != 'C')
+      strcat(path,"/C");
+    strcat(path,"/RecursosTest/test_partida_1.txt");
+  
+    FILE * fp = fopen(path, "r");
 
-  Personas jugador = obtener_jugadores(fp);
-  assert(strcmp("Luciano Belardo", jugador[0].nombre) == 0);
-  assert('N' == jugador[0].color);
-  assert(strcmp("Ignacio Basualdo", jugador[1].nombre) == 0);
-  assert('B' == jugador[1].color);
+    Personas jugador = obtener_jugadores(fp);
+    assert(strcmp("Luciano Belardo", jugador[0].nombre) == 0);
+    assert('N' == jugador[0].color);
+    assert(strcmp("Ignacio Basualdo", jugador[1].nombre) == 0);
+    assert('B' == jugador[1].color);
 
-  liberar_jugadores(jugador);
-  fclose(fp);
+    liberar_jugadores(jugador);
+    fclose(fp);
 
-  fp = fopen("./RecursosTest/test_partida_2.txt", "r");
+    getcwd(path, sizeof(path));
+    if(path[strlen(path) - 1] != 'C')
+      strcat(path,"/C");
+    strcat(path,"/RecursosTest/test_partida_2.txt");
 
-  jugador = obtener_jugadores(fp);
-  assert('X' == jugador[1].color);
+    fp = fopen(path, "r");
 
-  liberar_jugadores(jugador);
-  fclose(fp);
+    jugador = obtener_jugadores(fp);
+    assert('X' == jugador[1].color);
+
+    liberar_jugadores(jugador);
+    fclose(fp);
+  }
 }
 
 void test_cambiar_turno() {
@@ -223,22 +243,34 @@ void test_fin_del_juego() {
 }
 
 void test_jugadores_validos() {
-  FILE * fp = fopen("./RecursosTest/test_partida_1.txt", "r");
+  char path[511];
+  if (getcwd(path, sizeof(path)) != NULL) {
+    if(path[strlen(path) - 1] != 'C')
+      strcat(path,"/C");
+    strcat(path,"/RecursosTest/test_partida_1.txt");
 
-  Personas jugador = obtener_jugadores(fp);
+    FILE * fp = fopen(path, "r");
 
-  assert(jugadores_validos(jugador) != 0);
+    Personas jugador = obtener_jugadores(fp);
 
-  liberar_jugadores(jugador);
-  fclose(fp);
+    assert(jugadores_validos(jugador) != 0);
 
-  fp = fopen("./RecursosTest/test_partida_2.txt", "r");
+    liberar_jugadores(jugador);
+    fclose(fp);
 
-  jugador = obtener_jugadores(fp);
-  assert(jugadores_validos(jugador) == 0);
+    getcwd(path, sizeof(path));
+    if(path[strlen(path) - 1] != 'C')
+      strcat(path,"/C");
+    strcat(path,"/RecursosTest/test_partida_2.txt");
 
-  liberar_jugadores(jugador);
-  fclose(fp);
+    fp = fopen(path, "r");
+
+    jugador = obtener_jugadores(fp);
+    assert(jugadores_validos(jugador) == 0);
+
+    liberar_jugadores(jugador);
+    fclose(fp);
+  }
 }
 
 void test_turno_valido() {
@@ -248,17 +280,24 @@ void test_turno_valido() {
 }
 
 void test_jugar() {
-  FILE * fp = fopen("./RecursosTest/test_partida_1.txt", "r");
-  Personas jugador = obtener_jugadores(fp);
-  char turno = obtener_turno(fp);
+  char path[511];
+  if (getcwd(path, sizeof(path)) != NULL) {
+    if(path[strlen(path) - 1] != 'C')
+      strcat(path,"/C");
+    strcat(path,"/RecursosTest/test_partida_1.txt");
+  
+    FILE * fp = fopen(path, "r");
+    Personas jugador = obtener_jugadores(fp);
+    char turno = obtener_turno(fp);
 
-  Tablero tablero = crear_tablero();
-  Codigos codigos = iniciar_codigos();
+    Tablero tablero = crear_tablero();
+    Codigos codigos = iniciar_codigos();
 
-  assert(jugar(fp, tablero, codigos, turno) == 'B');
+    assert(jugar(fp, tablero, codigos, turno) == 'B');
 
-  liberar_codigos(codigos);
-  liberar_tablero(tablero);
-  liberar_jugadores(jugador);
-  fclose(fp);
+    liberar_codigos(codigos);
+    liberar_tablero(tablero);
+    liberar_jugadores(jugador);
+    fclose(fp);
+  }
 }
