@@ -38,10 +38,8 @@ luego guardar el tablero y el turno en el archivo especificado. Retorna 1 si
 hubo algun error al abrir/crear el archivo y 0 si no lo hubo. */
 int guardar_tablero(char const *archivo_nombre, Tablero tablero, char turno) {
   FILE *archivo = fopen(archivo_nombre, "w+");
-  if(archivo == NULL) {
-    perror("Error opening file");
+  if(archivo == NULL)
     return 1;
-  }
   
   for (int i = 0; i < DIMENSION_TABLERO; i++) {
     for (int j = 0; j < DIMENSION_TABLERO; j++) {

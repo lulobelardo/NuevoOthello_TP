@@ -383,8 +383,6 @@ def jugada_pc(tablero: list[list[str]], turno: str, dificultad: str) -> None:
 
   print("\nLuego de la jugada de la PC, el tablero es el siguiente:")
   imprimir_tablero(tablero)
-  input("Presione enter para continuar.")
-  limpiar_pantalla()
 
 # jugada_jugador: Tablero, String -> None
 # Toma el tablero y el color del jugador, y realiza la jugada tomada por pantalla
@@ -426,7 +424,6 @@ def jugada_jugador(tablero: list[list[str]], turno: str) -> None:
   
   print("\nLuego de su jugada, el tablero es el siguiente:")
   imprimir_tablero(tablero)
-  input("Presione enter para continuar.")
 
 # chequear_paso: Tablero, String -> Bool
 # Retorna True si es válido que el jugador 'pase', caso contrario retorna False
@@ -492,7 +489,7 @@ def evaluar_y_mostrar_resultado(tablero: list[list[str]], color_jugador: str, di
     print("Ha habido un empate. Nivel PC: " + dificultad)
 
   print("\nPuntos jugador (" + color_jugador + "): " + str(jugador))
-  print("\nPuntos pc (" + color_pc + "): " + str(pc))
+  print("\nPuntos PC (" + color_pc + "): " + str(pc))
     
 # jugar: Tablero, String, String, String -> None
 # Toma los datos necesarios y comienza el juego versus la PC
@@ -510,6 +507,9 @@ def jugar(tablero: list[list[str]], turno: str, color_jugador: str, dificultad: 
       jugada_jugador(tablero, turno)
     else:
       jugada_pc(tablero, turno, dificultad)
+    if continuar:
+      input("Presione enter para continuar.")
+      limpiar_pantalla()
     
     turno = cambiar_turno(turno)
 
